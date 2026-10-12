@@ -1,6 +1,13 @@
 from django.shortcuts import render,redirect
 from students.models import Students
 
+# 학생상세보기
+def sview(request,name):
+    print(f'name 데이터 : {name}')
+    qs = Students.objects.get(name=name)
+    context = {'stu':qs}
+    return render(request,'sview.html',context)
+
 # 학생정보리스트
 def slist(request):
     qs = Students.objects.all()
