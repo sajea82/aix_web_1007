@@ -16,6 +16,9 @@ def swrite(request):
 
 # 학생성적리스트
 def slist(request):
-    qs = Students.objects.all().order_by('-no')
-    context = {'list':qs}
-    return render(request, 'slist.html',context)
+    if request.method == 'GET':
+        qs = Students.objects.all().order_by('-no')
+        context = {'list':qs}
+        return render(request, 'slist.html',context)
+    if request.method == 'POST':
+        type = 
