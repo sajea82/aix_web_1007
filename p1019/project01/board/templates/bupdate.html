@@ -5,8 +5,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel='stylesheet' href='/static/css/bwrite.css'>
     <title>뉴스 글수정</title>
-
-
+  
+    
 </head>
 
 
@@ -88,7 +88,7 @@
             method="post"
             enctype="multipart/form-data"
         >
-        <input type="hidden" name='old_bfile' value='{{board.bfile}}'>
+        <input type='hidden' name='old_bfile' value='{{board.bfile}}' >
         {% csrf_token %}
             <!-- TITLE -->
 
@@ -150,7 +150,6 @@
 
             </div>
 
-
             <!-- CONTENT -->
 
             <div class="form-row content-row">
@@ -168,7 +167,8 @@
 
                 <div class="form-input content-input">
 
-                    <textarea name="bcontent" placeholder="내용을 입력하세요." required
+                    <textarea name="bcontent"
+                        placeholder="내용을 입력하세요." required
                     >{{board.bcontent}}</textarea>
 
                 </div>
@@ -183,11 +183,10 @@
                     <input type="file" name="bfile">
                 </div>
             </div>
-
             <!-- FILE -->
             <div class="form-row">
                 <div class="form-label">기존파일</div>
-                <div class="form-input file-input">{{board.bfile}}
+                <div class="form-input file-input">
                     {% if board.bfile %}{{board.bfile}}
                     {% else %}파일 첨부가 없습니다.
                     {% endif %}

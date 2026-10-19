@@ -5,6 +5,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>뉴스 상세보기</title>
 <link rel='stylesheet' href='/static/css/bview.css'>
+
 </head>
 <body>
 <!-- HEADER -->
@@ -63,31 +64,34 @@
         ========================= -->
 
         <article class="post">
+
+
             <!-- POST HEADER -->
 
             <div class="post-header">
-                <!--제목-->
+                <!-- 제목 -->
                 <h3>{{board.btitle}}</h3>
                 <div class="post-info">
                     <span>작성자 : {{board.id}}</span>
                     <span>{{board.bdate | date:'Y.m.d'}}</span>
-                    <span> 조회수 : {{board.bhit}}</span>
+                    <span>조회수 : {{board.bhit}}</span>
                 </div>
             </div>
-
+            
             <!-- POST CONTENT -->
             <div class="post-content">
                 <p></p>
                 <p>{{board.bcontent}}</p>
             </div>
-            
+
             <!-- POST IMAGE -->
             {% if board.bfile %}
             <div class="post-image">
-                <img src="{{board.bfile.url}}" alt="{{board.btitle}}">
+                <img src="{{board.bfile.url}}" alt="{{board.btitle}}" >
             </div>
             {% endif %}
-            
+
+
             <!-- =========================
                  PREVIOUS / NEXT
             ========================= -->
@@ -139,11 +143,11 @@
 
         <div class="button-area">
 
+
             <!-- LEFT -->
             <div class="button-left">
                 <a href="/board/blist/" class="btn btn-dark">목록</a>
             </div>
-
             <!-- RIGHT -->
             <div class="button-right">
                 <a href="/board/bupdate/{{board.bno}}/" class="btn">수정</a>
@@ -152,7 +156,7 @@
             <script>
                 function deleteBtn(){
                     if (confirm('{{board.bno}}번 게시글을 삭제하시겠습니까?')){
-                        // ajax -> post 전송 또는 delete전송으로 보내야 함.
+                        //ajax -> post전송 또는 delete전송으로 보내야 함.
                         // get방식
                         location.href='/board/bdelete/{{board.bno}}/';
                     }

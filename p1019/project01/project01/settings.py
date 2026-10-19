@@ -9,7 +9,7 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # See https://docs.djangoproject.com/en/6.1/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = 'django-insecure-o73)0r05qhv$#!w2*!1s$j_1n*_h+ocgyo=#vd_cuwax(y&w^@'
+SECRET_KEY = 'django-insecure-q+8+_lzkzsytmno&egy4h(trl9v_q3&!9uqkn28tg6bo%m^74n'
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
@@ -104,17 +104,18 @@ USE_TZ = True
 
 
 # Static files (CSS, JavaScript, Images)
-# https://docs.djangoproject.com/en/6.1/howto/static-files/
-
+# url -> static링크가 들어오면, static폴더에서 파일검색
+# 나머지 링크들은 : urls.py 링크주소를 찾아서 검색
 STATIC_URL = 'static/'
 STATICFILES_DIRS = [
-    os.path.join(BASE_DIR,'static')
+    os.path.join(BASE_DIR,'static'),
 ]
 
 # 파일업로드 위치설정
 MEDIA_URL = '/media/'
 # MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
-MEDIA_ROOT = 'c:/upload' # 로컬 드라이브 설정
+MEDIA_ROOT = 'c:/upload'  # 로컬 드라이브 설정
+
 
 # Email
 # https://docs.djangoproject.com/en/6.1/topics/email/#topic-email-configuration

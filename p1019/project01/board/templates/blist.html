@@ -71,7 +71,7 @@
         </thead>
         <tbody>
             {% if list %} {# 게시글이 있으면 #}
-                {% for board in list  %}
+                {% for board in list %}
                     <tr>
                         <td class="number">{{board.bno}}</td>
                         <td class="subject"><a href="/board/bview/{{board.bno}}/">{{board.btitle}}</a></td>
@@ -87,6 +87,10 @@
             {% endif %}
         </tbody>
     </table>
+</div>
+<!-- WRITE BUTTON -->
+<div class="write-area">
+<a class="write-btn" href="/board/bwrite/">글쓰기</a>
 </div>
 <!-- PAGINATION -->
 <div class="pagination">
