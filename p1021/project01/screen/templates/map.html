@@ -1,0 +1,201 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<script src="http://code.jquery.com/jquery-latest.min.js"></script>
+<script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=0ccf8b7f8caa5b22d2299ae4c37f10ee"></script>
+<title>카카오맵</title>
+<link rel='stylesheet' href='/static/css/bview.css'>
+<script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=dcc9c2ff470111781f4ce0317ddd4efe"></script>
+
+</head>
+<body>
+<!-- HEADER -->
+<header>
+    <div class="top">
+    <div class="logo">
+                FOREST
+            </div>
+    <ul class="menu">
+    <li><a href="#">소개</a></li>
+    <li><a href="#">뉴스</a></li>
+    <li><a href="#">학생관리</a></li>
+    <li><a href="#">학과정보</a></li>
+    <li><a href="#">문의</a></li>
+    </ul>
+    </div>
+</header>
+<!-- VISUAL -->
+<section class="visual">
+    <div>
+        <h1>NEWS</h1>
+        <p>포레스트의 새로운 소식을 만나보세요.</p>
+    </div>
+</section>
+<!-- 차트그리기 -->
+
+<main>
+    <div class="container">
+        <input type='text' name='search_word' id='search_word' >
+        <button type='button' onclick='searchBtn()'>검색</button>
+        <br>
+        <br>
+        <!--카카오맵 지도표시-->
+        <div id="map" style="width:100%;height:350px;"></div>
+    </div>
+</main>
+<script>
+    // 1. 지도 생성
+    var mapContainer = document.getElementById('map'), 
+    mapOption = { 
+        center: new kakao.maps.LatLng(37.95, 128.75), // 강원도 동해안 중앙 부근
+        level: 9 // 강릉~속초가 한눈에 들어오는 레벨 (8~10 추천)
+    };
+
+    var map = new kakao.maps.Map(mapContainer, mapOption); 
+
+    // 2. 마커 위치 데이터
+    var positions = [
+        {
+            content: '<div style="padding:5px;font-size:12px;font-weight:bold;">속초해변</div>', 
+            latlng: new kakao.maps.LatLng(38.1954, 128.6033)
+        },
+        {
+            content: '<div style="padding:5px;font-size:12px;font-weight:bold;">안목해변</div>', 
+            latlng: new kakao.maps.LatLng(37.7648, 128.9467)
+        },
+        {
+            content: '<div style="padding:5px;font-size:12px;font-weight:bold;">경포해변</div>', 
+            latlng: new kakao.maps.LatLng(37.7949, 128.9048)
+        },
+        {
+            content: '<div style="padding:5px;font-size:12px;font-weight:bold;">강문해변</div>',
+            latlng: new kakao.maps.LatLng(37.7852, 128.9178)
+        }
+    ];
+
+    // 지도를 재설정할 범위정보를 가지는 Bounds 객체를 생성합니다
+    var bounds = new kakao.maps.LatLngBounds();
+
+    for (var i = 0; i < positions.length; i++) {
+        // 마커를 생성합니다
+        var marker = new kakao.maps.Marker({
+            map: map,
+            position: positions[i].latlng
+        });
+
+        // 인포윈도우 생성
+        var infowindow = new kakao.maps.InfoWindow({
+            content: positions[i].content
+        });
+
+        // 마커에 이벤트 등록 (클로저 처리)
+        kakao.maps.event.addListener(marker, 'mouseover', makeOverListener(map, marker, infowindow));
+        kakao.maps.event.addListener(marker, 'mouseout', makeOutListener(infowindow));
+
+        // 🌟 [핵심] LatLngBounds 객체에 좌표를 추가하여 4개 마커가 모두 보이는 영역을 계산합니다
+        bounds.extend(positions[i].latlng);
+    }
+
+    // 🌟 [핵심] 마커 4개가 모두 한눈에 보이도록 지도의 중심과 확대 레벨을 자동으로 딱 맞춰줍니다!
+    map.setBounds(bounds);
+
+    function makeOverListener(map, marker, infowindow) {
+        return function() {
+            infowindow.open(map, marker);
+        };
+    }
+
+    function makeOutListener(infowindow) {
+        return function() {
+            infowindow.close();
+        };
+    }
+
+ 
+    {% comment %} //카카오맵 스크립트부분
+    var mapContainer = document.getElementById('map'), // 지도를 표시할 div  
+    mapOption = { 
+        center: new kakao.maps.LatLng(37.48684114287901,126.92945576740215), // 지도의 중심좌표
+        level: 3 // 지도의 확대 레벨
+    };
+
+    var map = new kakao.maps.Map(mapContainer, mapOption); // 지도를 생성합니다
+
+    // 마커를 표시할 위치와 내용을 가지고 있는 객체 배열입니다 
+    var positions = [
+        {
+            content: '<div>메가MGC커피</div>', 
+            latlng: new kakao.maps.LatLng(37.48655729006581,126.92939667291236)
+        },
+        {
+            content: '<div>안경콘택트 바오</div>', 
+            latlng: new kakao.maps.LatLng(37.48731398570099,126.9291443789755)
+        },
+        {
+            content: '<div>컴포즈커피</div>', 
+            latlng: new kakao.maps.LatLng(37.48633635361033,126.92908028763593)
+        },
+        {
+            content: '<div>토담골</div>',
+            latlng: new kakao.maps.LatLng(37.486778245842665,126.92974698093329)
+        }
+    ];
+
+    for (var i = 0; i < positions.length; i ++) {
+        // 마커를 생성합니다
+        var marker = new kakao.maps.Marker({
+            map: map, // 마커를 표시할 지도
+            position: positions[i].latlng // 마커의 위치
+        });
+
+        // 마커에 표시할 인포윈도우를 생성합니다 
+        var infowindow = new kakao.maps.InfoWindow({
+            content: positions[i].content // 인포윈도우에 표시할 내용
+        });
+
+        // 마커에 mouseover 이벤트와 mouseout 이벤트를 등록합니다
+        // 이벤트 리스너로는 클로저를 만들어 등록합니다 
+        // for문에서 클로저를 만들어 주지 않으면 마지막 마커에만 이벤트가 등록됩니다
+        kakao.maps.event.addListener(marker, 'mouseover', makeOverListener(map, marker, infowindow));
+        kakao.maps.event.addListener(marker, 'mouseout', makeOutListener(infowindow));
+        }
+
+        // 인포윈도우를 표시하는 클로저를 만드는 함수입니다 
+        function makeOverListener(map, marker, infowindow) {
+            return function() {
+                infowindow.open(map, marker);
+            };
+        }
+
+        // 인포윈도우를 닫는 클로저를 만드는 함수입니다 
+        function makeOutListener(infowindow) {
+            return function() {
+                infowindow.close();
+            };
+        }
+         {% endcomment %}
+</script>
+
+<!-- FOOTER -->
+<footer>
+<div class="footer-inner">
+<div class="footer-menu">
+<a href="#">회사소개</a>
+<a href="#">오시는 길</a>
+<a href="#">개인정보처리방침</a>
+<a href="#">이용약관</a>
+<a href="#">이메일무단수집거부</a>
+</div>
+<div class="footer-info">
+
+            포레스트 리조트\
+            충청북도 제천시 백운면 금봉로 365\
+            대표번호 : 043-649-6000
+
+        </div>
+</div>
+</footer>
+</body>
+</html>
